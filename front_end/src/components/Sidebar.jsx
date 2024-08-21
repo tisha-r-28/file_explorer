@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import Files from './Files';
 
 function Sidebar({ explorerData, setExplorerData, isNested = false }) {
     // State to track which folders are open
     const [openFolders, setOpenFolders] = useState({});
     const [ showInput, setShowInput ] = useState(false);
+    const [ slectedField, setSlectedField ] = useState(null);
 
     // Handle showing or hiding folder children
     const handleShow = (id) => {
@@ -38,16 +40,22 @@ function Sidebar({ explorerData, setExplorerData, isNested = false }) {
         //     name : 'folder'
         // })
     }
-
+    
     if (!localStorage.getItem('fileExplorerData')) {
         localStorage.setItem('fileExplorerData', JSON.stringify(explorerData));
     }
-
+    
     const fileData = JSON.parse(localStorage.getItem('fileExplorerData'));
+    
+    const openFile = (id) => {
+        console.log(id);
+        setSlectedField(id);
+    }
 
     return (
+        <>
         <section className="container-flushowInput">
-            <div className="row">
+            <div className="row d-flex">
                 <div className={isNested ? 'col-12 justify-content-end' : 'col-2'}>
                     {explorerData.map((item) => (
                         <div key={item.id}>
@@ -57,7 +65,7 @@ function Sidebar({ explorerData, setExplorerData, isNested = false }) {
                             >
                                 <span 
                                     className='border-start border-black border-1 d-flex'
-                                    onClick={() => item.isFolder ? handleShow(item.id) : undefined}
+                                    onClick={() => item.isFolder ? handleShow(item.id) : openFile(item.id)}
                                 >
                                     <span className='mx-2'>{item.isFolder ? '📁' : '📄'}</span>
                                     <span>{item.name}</span>
@@ -87,6 +95,14 @@ function Sidebar({ explorerData, setExplorerData, isNested = false }) {
                 </div>
             </div>
         </section>
+        <section className="container-fluid">
+            <div className="row">
+                <div className="col-10">
+                    {slectedField && <Files fileData={fileData} id={slectedField}/>}
+                </div>
+            </div>
+        </section>
+        </>
     );
 }
 
