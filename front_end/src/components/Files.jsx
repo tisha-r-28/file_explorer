@@ -1,6 +1,7 @@
 import React from 'react';
 
-function Files({ fileData, id }) {
+function Files({ fileData, id, setSelectedFileId }) {
+    // Recursive function to find the file by ID
     const findFileById = (data, id) => {
         for (const item of data) {
             if (item.id === id && !item.isFolder) {
@@ -16,13 +17,21 @@ function Files({ fileData, id }) {
         return null;
     };
 
+    const handleClose = () => {
+        setSelectedFileId(null)
+    }
+
     const file = findFileById(fileData, id);
 
     return (
-        <section>
+        <section className="col-10 bg-secondary-subtle p-5">
             {file ? (
                 <div>
-                    {file.data}
+                    <div className='d-flex justify-content-between align-items-center'>
+                        <h1 className="fs-2 text-center">{file.name}</h1>
+                        <span style={{cursor : 'pointer'}} onClick={handleClose}>✖</span>
+                    </div>
+                    <p className='pt-4'> {file?.data ? file.data : 'No content available'} </p>
                 </div>
             ) : (
                 <div>No content available</div>
