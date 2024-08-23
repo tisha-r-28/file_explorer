@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import Sidebar from "./components/Sidebar";
-import fileExplorerData from "./data/fileExplorerData";
+import React from "react";
+import FileExplorer from "./components/FileExplorer";
 
 function App() {
-    const [ explorerData, setExplorerData ] = useState(fileExplorerData);
     return (
         <>
-            <Sidebar explorerData={explorerData} setExplorerData={setExplorerData}/>
+            <FileExplorer />
         </>
     );
 }
