@@ -57,59 +57,6 @@ const fileExplorerData = [
                 "data" : "5Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum quibusdam assumenda iusto amet facere saepe ratione veritatis eaque, totam facilis unde possimus id odit eos nostrum tenetur dolorem similique? Quis adipisci modi maiores blanditiis? Voluptatem qui aspernatur illum optio explicabo nesciunt nostrum! Corporis voluptatem qui recusandae voluptate, atque ad saepe."
             }
         ]
-    },
-    {
-        "id": '2',
-        "isFolder": true,
-        "items": 2,
-        "name": "Folder",
-        "children": [
-            {
-                "id": '2.1',
-                "isFolder": true,
-                "items": 1,
-                "name": "Subfolder",
-                "children": [
-                    {
-                        "id": '2.1.1',
-                        "isFolder": false,
-                        "items": 0,
-                        "name": "File",
-                        "data" : "6Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum quibusdam assumenda iusto amet facere saepe ratione veritatis eaque, totam facilis unde possimus id odit eos nostrum tenetur dolorem similique? Quis adipisci modi maiores blanditiis? Voluptatem qui aspernatur illum optio explicabo nesciunt nostrum! Corporis voluptatem qui recusandae voluptate, atque ad saepe."
-                    }
-                ]
-            },
-            {
-                "id": '2.2',
-                "isFolder": true,
-                "items": 0,
-                "name": "Folder",
-                "children": [
-                    {
-                        "id": '2.2.1',
-                        "isFolder": true,
-                        "items": 0,
-                        "name": "Folder",
-                        "children": [
-                            {
-                                "id": '2.2.1.1',
-                                "isFolder": false,
-                                "items": 0,
-                                "name": "File",
-                                "data" : "7Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum quibusdam assumenda iusto amet facere saepe ratione veritatis eaque, totam facilis unde possimus id odit eos nostrum tenetur dolorem similique? Quis adipisci modi maiores blanditiis? Voluptatem qui aspernatur illum optio explicabo nesciunt nostrum! Corporis voluptatem qui recusandae voluptate, atque ad saepe."
-                            }
-                        ]
-                    },
-                    {
-                        "id": '2.2.2',
-                        "isFolder": false,
-                        "items": 0,
-                        "name": "File",
-                        "data" : "8Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum quibusdam assumenda iusto amet facere saepe ratione veritatis eaque, totam facilis unde possimus id odit eos nostrum tenetur dolorem similique? Quis adipisci modi maiores blanditiis? Voluptatem qui aspernatur illum optio explicabo nesciunt nostrum! Corporis voluptatem qui recusandae voluptate, atque ad saepe."
-                    }
-                ]
-            }
-        ]
     }
 ]
 

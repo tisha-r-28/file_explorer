@@ -1,10 +1,10 @@
 import React from "react";
-import FileExplorer from "./components/FileExplorer";
+import FileFolderExp from "./components/FileFolderExp";
 
 function App() {
     return (
         <>
-            <FileExplorer />
+            <FileFolderExp />
         </>
     );
 }

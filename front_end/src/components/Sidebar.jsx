@@ -6,16 +6,10 @@ function Sidebar({ explorerData, setExplorerData, setSelectedFileId, isNested = 
     const [openFolders, setOpenFolders] = useState({});
     const [showInput, setShowInput] = useState({
         isInput : false,
-        folderId : null
+        folderId : null,
+        type : 'folder'
     });
-    const [ singleFolder, setSignleFolder ] = useState({
-        id : uuidv4(),
-        name : '',
-        children : [0],
-        items : 0,
-        isFolder : true
-    })
-            
+
     const handleShow = (id) => {
         //so logic is basically openFolders is object containes data like { id_1 : true, id_2 : false.....}
         //so if particular id is true it will be false and vice versa
@@ -38,47 +32,48 @@ function Sidebar({ explorerData, setExplorerData, setSelectedFileId, isNested = 
         }
         return null;
     };
-
-    const addFolder = (id) => {
-        console.log(id);
-        const foundedItem = foundItem(explorerData, id);
-        console.log(foundedItem);
-        setShowInput({
-            ...showInput,
-            isInput : true,
-            folderId : foundedItem.id
-        });
-    };    
-
-    const handleAdd = (data, id) => {
-        const newitem = {
-            id : uuidv4(),
-            isFolder : true,
-            name : data,
-            children : []
-        }
+    
+    const handleAdd = (data, id, isFolder) => {
         const item = foundItem(explorerData, id);
-        if(item){
-            item.children = item.children || [];
-            item.children.unshift(newitem);
+        if(isFolder){
+            const newitem = {
+                id : uuidv4(),
+                isFolder : true,
+                name : data,
+                children : []
+            }
+            if(item){
+                item.children.unshift(newitem);
+            }
+            console.log(explorerData);
+            console.log(item);
+            setOpenFolders((prevOpenFolders) => ({
+                ...prevOpenFolders,
+                [id]: true
+            }));
+        }else{
+            const newFile = {
+                id : uuidv4(6),
+                name : data,
+                data : '',
+                isFolder : false
+            }
+            if(item){
+                item.children.unshift(newFile);
+            }
+            console.log(item, "file");
         }
         console.log(explorerData);
-        console.log(item);
-        setOpenFolders((prevOpenFolders) => ({
-            ...prevOpenFolders,
-            [id]: true
-        }));
-        // localStorage.setItem('fileExplorerData', JSON.stringify(explorerData));
+        localStorage.setItem('fileExplorerData', JSON.stringify(explorerData));
     }
 
-    const onAddFolder = (e, id) => {
+    const onAddFolder = (e, id, isFolder) => {
         if(e.keyCode === 13 && e.target.value){
-            handleAdd(e.target.value, id);
+            handleAdd(e.target.value, id, isFolder);
             setShowInput({
                 ...showInput,
                 isInput : !showInput.isInput
             });
-        // }
     }}
 
     const openFile = (id) => {
@@ -106,8 +101,16 @@ function Sidebar({ explorerData, setExplorerData, setSelectedFileId, isNested = 
                                 <span>
                                     {item.isFolder && (
                                         <>
-                                            <button className="btn btn-sm btn-outline-dark mx-1" onClick={() => addFolder(item.id)}>Folder +</button>
-                                            <button className="btn btn-sm btn-outline-dark">File +</button>
+                                            <button className="btn btn-sm btn-outline-dark mx-1" onClick={() => setShowInput({
+                                                    isInput: true,
+                                                    folderId: item.id,
+                                                    type: 'folder'
+                                                })}>Folder +</button>
+                                            <button className="btn btn-sm btn-outline-dark" onClick={() => setShowInput({
+                                                    isInput: true,
+                                                    folderId: item.id,
+                                                    type: 'file'
+                                                })}>File +</button>
                                         </>
                                     )}
                                 </span>
@@ -115,14 +118,18 @@ function Sidebar({ explorerData, setExplorerData, setSelectedFileId, isNested = 
 
                             {showInput.isInput && (showInput.folderId === item.id) ?
                                 <div>
-                                    <span>{item.isFolder ? '📁' : '📄'}</span> 
+                                    <span>{showInput.type === 'folder' ? '📁' : '📄'}</span> 
                                     <input 
                                         type="text" 
                                         autoFocus
                                         name="addFile" 
                                         id="addFile" 
-                                        onBlur={() => setShowInput({...showInput, isInput : false})}
-                                        onKeyDown={(e) => onAddFolder(e, item.id)}
+                                        onBlur={() =>  setShowInput({
+                                            isInput: false,
+                                            folderId: null,
+                                            type: 'folder'
+                                        })}
+                                        onKeyDown={(e) => onAddFolder(e, item.id, showInput.type === 'folder' ? true : false)}
                                     />
                                 </div> : ''
                             }
